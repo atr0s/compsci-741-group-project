@@ -1,0 +1,6 @@
+# Per-environment state: generated secrets and deployment outputs.
+.state/
+# Local virtualenv for the data-plane scripts.
+.venv/
+# Packaged app zips.
+.build/

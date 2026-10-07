@@ -1,0 +1,10 @@
+# Runtime dependencies for the catalog MCP server on App Service.
+# Pruned from src/python/requirements.txt: the agent shim's deps (fastapi,
+# azure-ai-agents, azure-ai-projects, pandas) are not needed here, and F1 has
+# only 1 GB of storage.
+asyncpg>=0.30.0,<0.31.0
+azure-identity>=1.23.0,<2.0.0
+mcp>=1.10.0,<2.0.0
+openai>=1.97.0,<2.0.0
+python-dotenv>=1.1.1,<2.0.0
+uvicorn[standard]>=0.35.0,<0.36.0

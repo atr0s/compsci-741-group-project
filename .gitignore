@@ -1,0 +1,9 @@
+# Per-environment deploy state: generated secrets and deployment outputs. Never commit.
+deploy/.state/
+deploy/.venv/
+deploy/.build/
+.env
+.venv/
+__pycache__/
+*.pyc
+.DS_Store

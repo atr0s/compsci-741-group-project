@@ -1,0 +1,17 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "_comment": "Non-secret defaults only. environmentName, location, suffix, the secrets and clientIpAddresses are supplied by deploy.sh from deploy/.state/<env>.env.",
+  "parameters": {
+    "models": {
+      "value": [
+        { "name": "gpt-5-mini", "format": "OpenAI", "version": "2025-08-07", "skuName": "GlobalStandard", "capacity": 250 },
+        { "name": "text-embedding-3-small", "format": "OpenAI", "version": "1", "skuName": "GlobalStandard", "capacity": 120 }
+      ]
+    },
+    "chatModelDeploymentName": { "value": "gpt-5-mini" },
+    "embeddingModelDeploymentName": { "value": "text-embedding-3-small" },
+    "pythonVersion": { "value": "3.14" },
+    "monthlyBudget": { "value": 60 }
+  }
+}

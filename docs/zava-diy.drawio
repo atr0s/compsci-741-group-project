@@ -1,0 +1,269 @@
+<mxfile host="65bd71144e">
+    <diagram id="zava-trust-boundaries" name="Trust boundaries">
+        <mxGraphModel dx="1650" dy="853" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1460" pageHeight="1500" background="#F7F7F5" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="authz" value="" style="rounded=1;arcSize=3;html=1;fillColor=none;strokeColor=#2F7A5B;strokeWidth=2.5;dashed=1;dashPattern=10 5;" parent="1" vertex="1">
+                    <mxGeometry x="46" y="886" width="968" height="538" as="geometry"/>
+                </mxCell>
+                <mxCell id="title" value="&lt;b&gt;DIY agent Architecture — components, data flows and trust boundaries&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;fontSize=20;fontColor=#14171A;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="36" width="900" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="subtitle" value="As built on the new Foundry agents — one customer-facing agent, a catalog MCP server on App Service and Postgres behind row level security" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#7C858C;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="66" width="960" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="z1" value="UNTRUSTED · END USER" style="rounded=1;arcSize=8;html=1;container=1;collapsible=0;fillColor=#FDF1EE;strokeColor=#C9705F;dashed=1;dashPattern=8 5;verticalAlign=top;align=left;spacingLeft=14;spacingTop=4;fontSize=10;fontStyle=1;fontColor=#A9543F;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="120" width="940" height="105" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1" value="&lt;b&gt;Browser — chat UI&lt;/b&gt;" style="rounded=1;arcSize=10;html=1;container=1;collapsible=0;fillColor=#FFFFFF;strokeColor=#35506B;strokeWidth=1.5;verticalAlign=top;spacingTop=6;fontSize=13;fontColor=#22374D;" parent="z1" vertex="1">
+                    <mxGeometry x="240" y="26" width="460" height="68" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1a" value="EventSource → /chat/stream" style="rounded=1;arcSize=20;html=1;fillColor=#F1F4F7;strokeColor=#D5DCE3;fontSize=9;fontColor=#22374D;" parent="c1" vertex="1">
+                    <mxGeometry x="16" y="32" width="160" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="c1b" value="Basic credentials cached per origin" style="rounded=1;arcSize=20;html=1;fillColor=#F1F4F7;strokeColor=#D5DCE3;fontSize=9;fontColor=#22374D;" parent="c1" vertex="1">
+                    <mxGeometry x="184" y="32" width="200" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="z2" value="TRUSTED · OUR APPLICATION TIER  (Azure App Service)" style="rounded=1;arcSize=8;html=1;container=1;collapsible=0;fillColor=#EEF2F6;strokeColor=#35506B;verticalAlign=top;align=left;spacingLeft=14;spacingTop=4;fontSize=10;fontStyle=1;fontColor=#22374D;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="275" width="940" height="185" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2" value="&lt;b&gt;Chat app — web_app.py · foundry_backend.py · agents.py · stores.py&lt;/b&gt;" style="rounded=1;arcSize=10;html=1;container=1;collapsible=0;fillColor=#FFFFFF;strokeColor=#35506B;strokeWidth=1.5;verticalAlign=top;spacingTop=6;fontSize=13;fontColor=#22374D;" parent="z2" vertex="1">
+                    <mxGeometry x="240" y="35" width="460" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2a" value="HTTP Basic edge · WEB_AUTH_USERS" style="rounded=1;arcSize=20;html=1;fillColor=#FEF4E2;strokeColor=#D08700;fontSize=9;fontColor=#8A5A00;" parent="c2" vertex="1">
+                    <mxGeometry x="16" y="34" width="185" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2b" value="DIY → all-stores identity" style="rounded=1;arcSize=20;html=1;fillColor=#FEF4E2;strokeColor=#D08700;fontSize=9;fontColor=#8A5A00;" parent="c2" vertex="1">
+                    <mxGeometry x="209" y="34" width="150" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2c" value="conversation key = user : agent : store" style="rounded=1;arcSize=20;html=1;fillColor=#F1F4F7;strokeColor=#D5DCE3;fontSize=9;fontColor=#22374D;" parent="c2" vertex="1">
+                    <mxGeometry x="16" y="64" width="205" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2d" value="structured inputs built per turn" style="rounded=1;arcSize=20;html=1;fillColor=#F1F4F7;strokeColor=#D5DCE3;fontSize=9;fontColor=#22374D;" parent="c2" vertex="1">
+                    <mxGeometry x="229" y="64" width="175" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2e" value="MCP warm-up before the turn" style="rounded=1;arcSize=20;html=1;fillColor=#F1F4F7;strokeColor=#D5DCE3;fontSize=9;fontColor=#22374D;" parent="c2" vertex="1">
+                    <mxGeometry x="16" y="94" width="160" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="c2n" value="knows who signed in — for the DIY agent, that does not narrow the data" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#7C858C;whiteSpace=wrap;" parent="c2" vertex="1">
+                    <mxGeometry x="16" y="120" width="440" height="16" as="geometry"/>
+                </mxCell>
+                <mxCell id="z3" value="MICROSOFT-MANAGED · NOT OUR EXECUTION ENVIRONMENT" style="rounded=1;arcSize=8;html=1;container=1;collapsible=0;fillColor=#E9F1FB;strokeColor=#0F6CBD;verticalAlign=top;align=left;spacingLeft=14;spacingTop=4;fontSize=10;fontStyle=1;fontColor=#0B4B86;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="520" width="940" height="210" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3" value="&lt;b&gt;Microsoft Foundry — Agent Service&lt;/b&gt;" style="rounded=1;arcSize=10;html=1;container=1;collapsible=0;fillColor=#FFFFFF;strokeColor=#0F6CBD;strokeWidth=1.5;verticalAlign=top;spacingTop=6;fontSize=13;fontColor=#0B4B86;" parent="z3" vertex="1">
+                    <mxGeometry x="240" y="35" width="460" height="165" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3a" value="&lt;b&gt;gpt-5-mini — the model&lt;/b&gt;" style="rounded=1;arcSize=20;html=1;fillColor=#FFF3D6;strokeColor=#D08700;strokeWidth=1.5;fontSize=10;fontColor=#8A5A00;" parent="c3" vertex="1">
+                    <mxGeometry x="16" y="34" width="175" height="28" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3b" value="zava-diy-advisor · agent version" style="rounded=1;arcSize=20;html=1;fillColor=#E9F1FB;strokeColor=#0F6CBD;fontSize=10;fontColor=#0B4B86;" parent="c3" vertex="1">
+                    <mxGeometry x="199" y="34" width="190" height="28" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3c" value="allowed_tools — the 7 below" style="rounded=1;arcSize=20;html=1;fillColor=#FEF4E2;strokeColor=#D08700;fontSize=9;fontColor=#8A5A00;" parent="c3" vertex="1">
+                    <mxGeometry x="16" y="70" width="175" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3d" value="server-side tool loop" style="rounded=1;arcSize=20;html=1;fillColor=#F1F4F7;strokeColor=#D5DCE3;fontSize=9;fontColor=#22374D;" parent="c3" vertex="1">
+                    <mxGeometry x="199" y="70" width="130" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3e" value="structured inputs → prompt + MCP headers" style="rounded=1;arcSize=20;html=1;fillColor=#F1F4F7;strokeColor=#D5DCE3;fontSize=9;fontColor=#22374D;" parent="c3" vertex="1">
+                    <mxGeometry x="16" y="100" width="230" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3f" value="conversation store" style="rounded=1;arcSize=20;html=1;fillColor=#F1F4F7;strokeColor=#D5DCE3;fontSize=9;fontColor=#22374D;" parent="c3" vertex="1">
+                    <mxGeometry x="254" y="100" width="120" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3n" value="prompt from diy_assistant.md · the model sees only prompt, tool schemas, tool results" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#7C858C;whiteSpace=wrap;" parent="c3" vertex="1">
+                    <mxGeometry x="16" y="132" width="440" height="16" as="geometry"/>
+                </mxCell>
+                <mxCell id="c3m" value="&lt;b&gt;text-embedding-3-small&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#5C7A99&quot; style=&quot;font-size: 9px;&quot;&gt;Azure OpenAI deployment&lt;br&gt;same Foundry account&lt;/font&gt;" style="rounded=1;arcSize=10;html=1;fillColor=#FFFFFF;strokeColor=#0F6CBD;strokeWidth=1.5;fontSize=11;fontColor=#0B4B86;" parent="z3" vertex="1">
+                    <mxGeometry x="725" y="60" width="195" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="z4" value="&lt;b&gt;PUBLIC INTERNET · TRUST BOUNDARY&lt;/b&gt;&lt;br&gt;Foundry calls the tool tier outbound;&lt;br&gt;no VNet path, so it accepts public ingress" style="rounded=1;arcSize=8;html=1;fillColor=#FEF4E2;strokeColor=#D08700;dashed=1;dashPattern=8 5;verticalAlign=middle;align=left;spacingLeft=124;fontSize=10;fontColor=#8A5A00;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="800" width="940" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="z5" value="TRUSTED · OUR TOOL TIER  (Azure App Service)" style="rounded=1;arcSize=8;html=1;container=1;collapsible=0;fillColor=#EEF2F6;strokeColor=#35506B;verticalAlign=top;align=left;spacingLeft=14;spacingTop=4;fontSize=10;fontStyle=1;fontColor=#22374D;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="900" width="940" height="265" as="geometry"/>
+                </mxCell>
+                <mxCell id="c5" value="&lt;b&gt;Catalog MCP server — zava_catalog.py&lt;/b&gt;" style="rounded=1;arcSize=10;html=1;container=1;collapsible=0;fillColor=#FFFFFF;strokeColor=#35506B;strokeWidth=1.5;verticalAlign=top;spacingTop=6;fontSize=13;fontColor=#22374D;" parent="z5" vertex="1">
+                    <mxGeometry x="240" y="35" width="460" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="c5g" value="x-api-key gate" style="rounded=1;arcSize=20;html=1;fillColor=#FEF4E2;strokeColor=#D08700;fontSize=9;fontColor=#8A5A00;" parent="c5" vertex="1">
+                    <mxGeometry x="16" y="34" width="96" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="c5h" value="/healthz — open, unauthenticated" style="rounded=1;arcSize=20;html=1;fillColor=#FDF1EE;strokeColor=#C9705F;fontSize=9;fontColor=#A9543F;" parent="c5" vertex="1">
+                    <mxGeometry x="120" y="34" width="165" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="c5s" value="set_config(rls_user_id)" style="rounded=1;arcSize=20;html=1;fillColor=#EAF3EE;strokeColor=#2F7A5B;fontSize=9;fontColor=#1E5540;" parent="c5" vertex="1">
+                    <mxGeometry x="293" y="34" width="151" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="c5r1" value="GROUNDING — store ids, taxonomy, today&#39;s date" style="text;html=1;align=left;verticalAlign=middle;fontSize=8;fontStyle=1;fontColor=#A8B0B6;" parent="c5" vertex="1">
+                    <mxGeometry x="16" y="64" width="300" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="t1" value="get_stores" style="rounded=1;arcSize=20;html=1;fillColor=#F1F4F7;strokeColor=#D5DCE3;fontSize=9;fontColor=#22374D;" parent="c5" vertex="1">
+                    <mxGeometry x="16" y="78" width="80" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="t2" value="get_taxonomy" style="rounded=1;arcSize=20;html=1;fillColor=#F1F4F7;strokeColor=#D5DCE3;fontSize=9;fontColor=#22374D;" parent="c5" vertex="1">
+                    <mxGeometry x="104" y="78" width="86" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="t3" value="get_current_utc_date" style="rounded=1;arcSize=20;html=1;fillColor=#F1F4F7;strokeColor=#D5DCE3;fontSize=9;fontColor=#22374D;" parent="c5" vertex="1">
+                    <mxGeometry x="198" y="78" width="120" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="c5r2" value="RETRIEVAL — semantic and keyword search" style="text;html=1;align=left;verticalAlign=middle;fontSize=8;fontStyle=1;fontColor=#A8B0B6;" parent="c5" vertex="1">
+                    <mxGeometry x="16" y="106" width="300" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="t4" value="search_by_text" style="rounded=1;arcSize=20;html=1;fillColor=#E9F1FB;strokeColor=#0F6CBD;fontSize=9;fontColor=#0B4B86;" parent="c5" vertex="1">
+                    <mxGeometry x="16" y="120" width="92" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="t5" value="search_by_keyword" style="rounded=1;arcSize=20;html=1;fillColor=#F1F4F7;strokeColor=#D5DCE3;fontSize=9;fontColor=#22374D;" parent="c5" vertex="1">
+                    <mxGeometry x="116" y="120" width="110" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="c5r3" value="STOCK &amp;amp; VERIFICATION — price, stock, per-store breakdown" style="text;html=1;align=left;verticalAlign=middle;fontSize=8;fontStyle=1;fontColor=#A8B0B6;" parent="c5" vertex="1">
+                    <mxGeometry x="16" y="148" width="320" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="t7" value="filter_candidates" style="rounded=1;arcSize=20;html=1;fillColor=#F1F4F7;strokeColor=#D5DCE3;fontSize=9;fontColor=#22374D;" parent="c5" vertex="1">
+                    <mxGeometry x="16" y="162" width="106" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="t8" value="get_stock_by_store" style="rounded=1;arcSize=20;html=1;fillColor=#F1F4F7;strokeColor=#D5DCE3;fontSize=9;fontColor=#22374D;" parent="c5" vertex="1">
+                    <mxGeometry x="130" y="162" width="118" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="c5n" value="tools run here: the model sends a name + arguments, the tool runs fixed SQL. These 7 are every tool the server exposes." style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#7C858C;whiteSpace=wrap;" parent="c5" vertex="1">
+                    <mxGeometry x="16" y="194" width="440" height="16" as="geometry"/>
+                </mxCell>
+                <mxCell id="z6" value="DATA · THE ASSET BEING PROTECTED" style="rounded=1;arcSize=8;html=1;container=1;collapsible=0;fillColor=#EAF3EE;strokeColor=#2F7A5B;verticalAlign=top;align=left;spacingLeft=14;spacingTop=4;fontSize=10;fontStyle=1;fontColor=#1E5540;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="1225" width="940" height="185" as="geometry"/>
+                </mxCell>
+                <mxCell id="c6" value="&lt;b&gt;PostgreSQL Flexible — retail schema&lt;/b&gt;" style="rounded=1;arcSize=10;html=1;container=1;collapsible=0;fillColor=#FFFFFF;strokeColor=#2F7A5B;strokeWidth=1.5;verticalAlign=top;spacingTop=6;fontSize=13;fontColor=#1E5540;" parent="z6" vertex="1">
+                    <mxGeometry x="240" y="35" width="460" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="c6a" value="RLS · app.current_rls_user_id" style="rounded=1;arcSize=20;html=1;fillColor=#EAF3EE;strokeColor=#2F7A5B;fontSize=9;fontColor=#1E5540;" parent="c6" vertex="1">
+                    <mxGeometry x="16" y="34" width="170" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="c6b" value="pgvector · description vectors" style="rounded=1;arcSize=20;html=1;fillColor=#EAF3EE;strokeColor=#2F7A5B;fontSize=9;fontColor=#1E5540;" parent="c6" vertex="1">
+                    <mxGeometry x="194" y="34" width="170" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="c6c" value="stores · categories · product_types · products" style="rounded=1;arcSize=20;html=1;fillColor=#F1F4F7;strokeColor=#D5DCE3;fontSize=9;fontColor=#22374D;" parent="c6" vertex="1">
+                    <mxGeometry x="16" y="64" width="235" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="c6d" value="inventory · description embeddings" style="rounded=1;arcSize=20;html=1;fillColor=#F1F4F7;strokeColor=#D5DCE3;fontSize=9;fontColor=#22374D;" parent="c6" vertex="1">
+                    <mxGeometry x="259" y="64" width="185" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="c6e" value="out of the DIY tools&#39; reach: orders · order_items · customers" style="rounded=1;arcSize=20;html=1;dashed=1;fillColor=#FAFAFA;strokeColor=#C9CFD4;fontSize=9;fontColor=#8B959D;" parent="c6" vertex="1">
+                    <mxGeometry x="16" y="94" width="320" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="c6n" value="rows decided here: the DIY turn&#39;s all-stores id sees every store&#39;s inventory" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#7C858C;whiteSpace=wrap;" parent="c6" vertex="1">
+                    <mxGeometry x="16" y="120" width="440" height="16" as="geometry"/>
+                </mxCell>
+                <mxCell id="authzl" value="&lt;b&gt;AUTHORISATION BOUNDARY&lt;/b&gt; · data leaves only through the 7 tools&#39; SQL, rows only through RLS" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontColor=#1E5540;fillColor=#F7F7F5;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="515" y="878" width="480" height="16" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.28;exitY=1;exitDx=0;exitDy=0;entryX=0.28;entryY=0;entryDx=0;entryDy=0;strokeColor=#4A5157;strokeWidth=1.6;endArrow=block;endFill=1;" parent="1" source="c1" target="c2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1l" value="prompt · HTTPS + Basic" style="edgeLabel;html=1;align=right;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#4A5157;labelBackgroundColor=#F7F7F5;" parent="e1" vertex="1" connectable="0">
+                    <mxGeometry x="-0.1" relative="1" as="geometry">
+                        <mxPoint x="-8" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.28;exitY=1;exitDx=0;exitDy=0;entryX=0.28;entryY=0;entryDx=0;entryDy=0;strokeColor=#4A5157;strokeWidth=1.6;endArrow=block;endFill=1;" parent="1" source="c2" target="c3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3l" value="responses.create · streamed · agent zava-diy-advisor&lt;br&gt;structured inputs: run_context · mcp_api_key · rls_user_id&lt;br&gt;Entra ID (managed identity · Cognitive Services User)" style="edgeLabel;html=1;align=right;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#4A5157;labelBackgroundColor=#F7F7F5;" parent="e3" vertex="1" connectable="0">
+                    <mxGeometry x="-0.1" relative="1" as="geometry">
+                        <mxPoint x="-8" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.28;exitY=1;exitDx=0;exitDy=0;entryX=0.28;entryY=0;entryDx=0;entryDy=0;strokeColor=#4A5157;strokeWidth=1.6;endArrow=block;endFill=1;" parent="1" source="c3" target="c5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e5l" value="tool call · MCP streamable HTTP&lt;br&gt;x-api-key  +  x-rls-user-id (rendered from inputs)&lt;br&gt;approval: never · only the 7 allowed tools" style="edgeLabel;html=1;align=right;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#4A5157;labelBackgroundColor=#F7F7F5;" parent="e5" vertex="1" connectable="0">
+                    <mxGeometry x="-0.62" relative="1" as="geometry">
+                        <mxPoint x="-8" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.28;exitY=1;exitDx=0;exitDy=0;entryX=0.28;entryY=0;entryDx=0;entryDy=0;strokeColor=#4A5157;strokeWidth=1.6;endArrow=block;endFill=1;" parent="1" source="c5" target="c6" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e7l" value="SQL as store_manager&lt;br&gt;+ set_config(&#39;app.current_rls_user_id&#39;, …, true)&lt;br&gt;asyncpg · one transaction per call" style="edgeLabel;html=1;align=right;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#4A5157;labelBackgroundColor=#F7F7F5;" parent="e7" vertex="1" connectable="0">
+                    <mxGeometry x="-0.1" relative="1" as="geometry">
+                        <mxPoint x="-8" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.72;exitY=0;exitDx=0;exitDy=0;entryX=0.72;entryY=1;entryDx=0;entryDy=0;strokeColor=#9AA3AA;strokeWidth=1.6;endArrow=block;endFill=1;" parent="1" source="c2" target="c1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2l" value="answer · SSE&lt;br&gt;tool status lines + text deltas" style="edgeLabel;html=1;align=left;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#8B959D;labelBackgroundColor=#F7F7F5;" parent="e2" vertex="1" connectable="0">
+                    <mxGeometry x="0.1" relative="1" as="geometry">
+                        <mxPoint x="8" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.72;exitY=0;exitDx=0;exitDy=0;entryX=0.72;entryY=1;entryDx=0;entryDy=0;strokeColor=#9AA3AA;strokeWidth=1.6;endArrow=block;endFill=1;" parent="1" source="c3" target="c2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e4l" value="stream events as they happen&lt;br&gt;mcp_call · output_text deltas" style="edgeLabel;html=1;align=left;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#8B959D;labelBackgroundColor=#F7F7F5;" parent="e4" vertex="1" connectable="0">
+                    <mxGeometry x="0.1" relative="1" as="geometry">
+                        <mxPoint x="8" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.72;exitY=0;exitDx=0;exitDy=0;entryX=0.72;entryY=1;entryDx=0;entryDy=0;strokeColor=#9AA3AA;strokeWidth=1.6;endArrow=block;endFill=1;" parent="1" source="c5" target="c3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e6l" value="tool result · JSON" style="edgeLabel;html=1;align=left;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#8B959D;labelBackgroundColor=#F7F7F5;" parent="e6" vertex="1" connectable="0">
+                    <mxGeometry x="0.62" relative="1" as="geometry">
+                        <mxPoint x="8" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.72;exitY=0;exitDx=0;exitDy=0;entryX=0.72;entryY=1;entryDx=0;entryDy=0;strokeColor=#9AA3AA;strokeWidth=1.6;endArrow=block;endFill=1;" parent="1" source="c6" target="c5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e8l" value="rows — RLS-filtered" style="edgeLabel;html=1;align=left;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#8B959D;labelBackgroundColor=#F7F7F5;" parent="e8" vertex="1" connectable="0">
+                    <mxGeometry x="0.1" relative="1" as="geometry">
+                        <mxPoint x="8" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#0F6CBD;strokeWidth=1.4;dashed=1;endArrow=block;endFill=1;" parent="1" source="c5" target="c3m" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="882" y="990"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;strokeColor=#9AA3AA;strokeWidth=1.4;dashed=1;dashPattern=4 4;endArrow=block;endFill=1;" parent="1" source="c2" target="c5" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="30" y="415"/>
+                            <mxPoint x="30" y="1001"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e9n" value="search_by_text&lt;br&gt;embeds the query&lt;br&gt;managed identity&lt;br&gt;OpenAI User role" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#0F6CBD;" parent="1" vertex="1">
+                    <mxGeometry x="890" y="905" width="105" height="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="e10n" value="warm-up · GET /healthz&lt;br&gt;polled to 200 before the turn&lt;br&gt;not via Foundry" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#8B959D;" parent="1" vertex="1">
+                    <mxGeometry x="74" y="345" width="160" height="44" as="geometry"/>
+                </mxCell>
+                <mxCell id="g0" value="THE THREE CHECKPOINTS" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontStyle=1;fontColor=#7C858C;" parent="1" vertex="1">
+                    <mxGeometry x="1030" y="132" width="380" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="g1" value="&lt;b&gt;1 · Authentication — who is asking&lt;/b&gt;&lt;br&gt;&lt;br&gt;HTTP Basic at the app edge (WEB_AUTH_USERS). Basic rather than a token because EventSource cannot set headers on the SSE request.&lt;br&gt;&lt;br&gt;For the DIY agent the sign-in does not choose the data: every customer runs as the all-stores identity, and the store they name becomes a store_id filter the model passes, not an authorisation claim.&lt;br&gt;&lt;br&gt;&lt;i&gt;Authentication, not authorisation.&lt;/i&gt;" style="rounded=1;arcSize=8;html=1;fillColor=#FFFFFF;strokeColor=#D5DCE3;align=left;verticalAlign=top;spacingLeft=12;spacingRight=12;spacingTop=8;fontSize=11;fontColor=#4A5157;whiteSpace=wrap;" parent="1" vertex="1">
+                    <mxGeometry x="1030" y="275" width="380" height="195" as="geometry"/>
+                </mxCell>
+                <mxCell id="g2" value="&lt;b&gt;⚠  Where the boundary is weakest&lt;/b&gt;&lt;br&gt;&lt;br&gt;The tool list is enforced in Foundry, not in the tool tier. The MCP server checks only the shared key, and x-rls-user-id is whatever the caller sends. Both cross the public internet as plain headers from an environment we do not control.&lt;br&gt;&lt;br&gt;Anyone holding the key can call any tool the server exposes, as any identity.&lt;br&gt;&lt;br&gt;&lt;b&gt;Fix: enforce the allow-list in the MCP server per caller, and have the app edge mint a short-lived signed identity the tool tier verifies.&lt;/b&gt;" style="rounded=1;arcSize=8;html=1;fillColor=#FEF1EE;strokeColor=#C9705F;strokeWidth=1.5;align=left;verticalAlign=top;spacingLeft=12;spacingRight=12;spacingTop=8;fontSize=11;fontColor=#8C4432;whiteSpace=wrap;" parent="1" vertex="1">
+                    <mxGeometry x="1030" y="490" width="380" height="225" as="geometry"/>
+                </mxCell>
+                <mxCell id="g3" value="&lt;b&gt;2 · Endpoint authentication — which caller&lt;/b&gt;&lt;br&gt;&lt;br&gt;Constant-time x-api-key on every path except /healthz. It proves the caller holds our secret, which Foundry renders from a structured input each turn. It says nothing about which user the call is on behalf of.&lt;br&gt;&lt;br&gt;&lt;i&gt;The first control in front of the database.&lt;/i&gt;" style="rounded=1;arcSize=8;html=1;fillColor=#FFFFFF;strokeColor=#D5DCE3;align=left;verticalAlign=top;spacingLeft=12;spacingRight=12;spacingTop=8;fontSize=11;fontColor=#4A5157;whiteSpace=wrap;" parent="1" vertex="1">
+                    <mxGeometry x="1030" y="900" width="380" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="g4" value="&lt;b&gt;3 · Authorisation — what data leaves&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Reach:&lt;/b&gt; the model touches data only through the 7 tools, each running fixed SQL with the model&#39;s arguments. They read the catalogue, stores and inventory. Orders, order items and customers are out of reach because no tool on the server queries them.&lt;br&gt;&lt;br&gt;&lt;b&gt;Rows:&lt;/b&gt; Postgres RLS reads app.current_rls_user_id, set with set_config(…, true) so it dies with the transaction. The DIY turn sets the all-stores id, so every store&#39;s inventory passes.&lt;br&gt;&lt;br&gt;&lt;b&gt;This is the authorisation boundary&lt;/b&gt;: the tool surface and RLS together. A tool that reads orders or customers would widen it." style="rounded=1;arcSize=8;html=1;fillColor=#FFFFFF;strokeColor=#2F7A5B;strokeWidth=1.8;align=left;verticalAlign=top;spacingLeft=12;spacingRight=12;spacingTop=8;fontSize=11;fontColor=#4A5157;whiteSpace=wrap;" parent="1" vertex="1">
+                    <mxGeometry x="1030" y="1055" width="380" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="g5" value="&lt;b&gt;Sightlines&lt;/b&gt;&lt;br&gt;&lt;br&gt;Model sees — user text, run_context rendered into its instructions (advising a retail customer; nothing is scoped to a store yet), the 7 tool schemas, tool results.&lt;br&gt;&lt;br&gt;Model never sees — mcp_api_key or rls_user_id (Foundry renders them straight into the MCP headers), connection strings, or any row it did not receive as tool output." style="rounded=1;arcSize=8;html=1;fillColor=#FFFFFF;strokeColor=#D5DCE3;align=left;verticalAlign=top;spacingLeft=12;spacingRight=12;spacingTop=8;fontSize=11;fontColor=#4A5157;whiteSpace=wrap;" parent="1" vertex="1">
+                    <mxGeometry x="1030" y="1310" width="380" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="foot" value="Solid arrows = request path · light arrows = response path · dashed blue = embedding call (blue tool = the one that makes it) · dashed grey = out-of-band warm-up · dashed amber = public-internet crossing · bold dashed green = authorisation boundary" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontSize=10;fontColor=#8B959D;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="1440" width="940" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
