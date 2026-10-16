@@ -1,3 +1,6 @@
+// From microsoft/ai-tour-26-zava-diy-dataset-plus-mcp (MIT). Adapted by Team BrainWave for
+// COMPSCI 714: tool-call status lines in the bubble, a thinking indicator, store scoping.
+
 const messagesDiv = document.getElementById('messages');
 const messageInput = document.getElementById('messageInput');
 const sendBtn = document.getElementById('sendBtn');

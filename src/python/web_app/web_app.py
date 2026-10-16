@@ -1,6 +1,10 @@
 """
 Web Interface for Azure AI Agent Chat
 
+From microsoft/ai-tour-26-zava-diy-dataset-plus-mcp (MIT). Adapted by Team BrainWave for
+COMPSCI 714: the Foundry backend (foundry_backend.py), HTTP Basic sign-in, per-user
+store scoping and the /stores and /agents endpoints.
+
 This web application provides a user interface for interacting with the AI agent
 through REST API calls to the agent service.
 

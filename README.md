@@ -22,8 +22,8 @@ The diagram source is [`docs/zava-diy.drawio`](docs/zava-diy.drawio); open it in
 
 | Tier | Component | Where |
 |---|---|---|
-| User | Browser chat UI. Answers stream back via server-sent events | `src/shared/static/` |
-| App | Chat app (FastAPI) on **Azure App Service**. HTTP Basic sign-in; sets the identity each turn runs as | `src/python/web_app/` |
+| User | Browser chat UI from the upstream Zava workshop, adapted to show each tool call as a status line. Answers stream back via server-sent events | `src/shared/static/` |
+| App | Chat app (FastAPI) from the upstream Zava workshop, adapted to run on **Azure App Service** against Foundry: HTTP Basic sign-in; sets the identity each turn runs as | `src/python/web_app/` |
 | Agent | **Microsoft Foundry Agent Service**: agent `zava-diy-advisor` on `gpt-5-mini`. Foundry runs the tool loop and enforces the agent's tool allow-list | `scripts/provision_agent.py`, prompt in `src/python/workshop/prompts/diy_assistant.md` |
 | Tools | **Catalog MCP server** (streamable HTTP) on App Service. 7 tools, each running fixed, parameterised SQL; every request needs an `x-api-key` | `src/python/mcp_server/catalog/` |
 | Embeddings | Azure OpenAI `text-embedding-3-small` (1536 dims) for semantic search | same Foundry account |
@@ -59,9 +59,9 @@ deploy/        one-command deployment: deploy.sh, Bicep (infra/), SQL (sql/), he
 scripts/       provision_agent.py - publishes the Foundry agent
 src/python/
   mcp_server/  catalog MCP server (+ the embeddings client it imports from customer_sales/)
-  web_app/     chat app
+  web_app/     chat app (adapted from the upstream workshop)
   workshop/prompts/diy_assistant.md   the agent's instructions
-src/shared/static/   chat UI
+src/shared/static/   chat UI (adapted from the upstream workshop)
 evals/         behavioural evals (run_evals.py) and offline tests of the checks (test_checks.py)
 data/          Zava retail dataset (PostgreSQL 17 backup, with RLS and precomputed embeddings)
 docs/          architecture diagram
@@ -160,5 +160,10 @@ is usually stopped by Azure's content filter before it reaches the agent, and is
 
 The Zava dataset, the embeddings client and the starting point for this work come from
 [microsoft/ai-tour-26-zava-diy-dataset-plus-mcp](https://github.com/microsoft/ai-tour-26-zava-diy-dataset-plus-mcp),
-under the MIT licence in [`LICENSE`](LICENSE). The catalog MCP server, chat app, agent, deployment
-and evals are the team's work for COMPSCI 714 (University of Auckland, S2 2026).
+under the MIT licence in [`LICENSE`](LICENSE). That includes the chat app
+(`src/python/web_app/web_app.py` and the UI in `src/shared/static/`), which the team adapted rather
+than wrote: a Foundry Agent Service backend (`foundry_backend.py`, `agents.py`, `stores.py`), HTTP
+Basic sign-in, per-user store scoping, and tool calls shown as status lines in the chat bubble.
+
+The catalog MCP server, the agent and its prompt, the deployment and the evals are the team's work
+for COMPSCI 714 (University of Auckland, S2 2026).
