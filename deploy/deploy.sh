@@ -83,6 +83,19 @@ with os.fdopen(fd, "w") as f:
 PY
 }
 
+# Azure refuses to move a plan to F1 while any app on it has Always On, and the
+# Bicep updates the plan before the apps - so switch it off on the existing apps
+# first. A fresh environment has no apps yet and skips this.
+release_always_on() {
+  [ "$APP_SERVICE_SKU" = F1 ] || return 0
+  local app
+  for app in ${WEB_APP_NAME:-} ${MCP_APP_NAME:-}; do
+    az webapp show -g "$AZURE_RESOURCE_GROUP" -n "$app" -o none 2>/dev/null || continue
+    log "$app: switching Always On off before the move to F1"
+    az webapp config set -g "$AZURE_RESOURCE_GROUP" -n "$app" --always-on false -o none
+  done
+}
+
 run_bicep() {  # $1 = create | what-if
   load_env; check_subscription
   local ip; ip="$(client_ip)"
@@ -101,6 +114,7 @@ run_bicep() {  # $1 = create | what-if
     return
   fi
 
+  release_always_on
   log "deploying infrastructure to rg-$ENV_NAME-$AZURE_SUFFIX (10-20 minutes on a fresh environment)"
   local out="$STATE_DIR/$ENV_NAME.deployment.json"
   az deployment sub create --name "zava-$ENV_NAME-$(date +%Y%m%d%H%M%S)" "${args[@]}" -o json > "$out" \
