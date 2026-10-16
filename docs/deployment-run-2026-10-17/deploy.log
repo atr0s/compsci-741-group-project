@@ -1,0 +1,104 @@
+START 2026-10-17 10:26:55 NZDT
+[10:26:56]  ok environment 'zava' -> rg-zava-d33d in australiaeast
+[10:26:56]  ok subscription <subscription-id>
+[10:26:56]    state file: deploy/.state/zava.env
+[10:26:57] ==> deploying infrastructure to rg-zava-d33d (10-20 minutes on a fresh environment)
+[10:26:58] WARNING: A new Bicep release is available: v0.48.1. Upgrade now by running "az bicep upgrade".
+[10:35:44]  ok infrastructure deployed: rg-zava-d33d
+[10:35:45] ==> creating the zava database (as <entra-admin>)
+[10:35:47] ==> extensions, store_manager role, retail schema
+[10:35:48]  ok database ready for the data load
+[10:35:49] ==> restoring zava_retail_2025_07_21_postgres_rls.backup with pg_restore (a few minutes)
+[10:36:16]  !! pg_restore reported 1 error(s) - see deploy/.state/zava.restore.log; verifying
+[10:36:17] ==> verifying the load
+[10:36:17]    stores: 8
+[10:36:17]    products: 424
+[10:36:17]    customers: 50000
+[10:36:17]    embeddings: 424
+[10:36:17]    rls_tables: 10
+[10:36:17]    policies: 10
+[10:36:17]    store_manager_can_read: true
+[10:36:17]  ok data loaded, row level security in place
+[10:36:18] ==> packaging src/
+[10:36:18] mcp.zip: 5 files
+[10:36:18] web.zip: 9 files
+[10:36:48] ==> mcp-zava-d33d: stopping for the deploy
+[10:36:50] ==> mcp-zava-d33d: uploading mcp.zip
+[10:55:49] ==> mcp-zava-d33d: waiting for the build
+[10:55:50] ==> mcp-zava-d33d: starting
+[10:55:52] ==> mcp-zava-d33d: waiting for https://mcp-zava-d33d.azurewebsites.net/healthz (cold start is ~2 minutes)
+[10:58:47]  ok mcp-zava-d33d is up
+[10:59:18] ==> web-zava-d33d: stopping for the deploy
+[10:59:19] ==> web-zava-d33d: uploading web.zip
+[11:04:44] ==> web-zava-d33d: waiting for the build
+[11:04:45] ==> web-zava-d33d: starting
+[11:04:46] ==> web-zava-d33d: waiting for https://web-zava-d33d.azurewebsites.net/health (cold start is ~2 minutes)
+[11:08:58]  ok web-zava-d33d is up
+[11:09:00] ==> creating deploy/.venv for the data-plane scripts
+[11:09:12] ==> publishing agents to https://fdy-zava-d33d.services.ai.azure.com/api/projects/prj-zava-d33d
+[11:09:22] published zava-diy-advisor version 1
+[11:09:22] wrote AGENT_NAME_DIY to deploy/.state/zava.env
+[11:09:22] 
+[11:09:22] agent   : zava-diy-advisor (version 1)
+[11:09:22] model   : gpt-5-mini
+[11:09:22] prompt  : diy_assistant.md
+[11:09:22] mcp     : https://mcp-zava-d33d.azurewebsites.net/mcp
+[11:09:22] tools   : 7 allowed
+[11:09:22] inputs  : mcp_api_key, rls_user_id, run_context
+[11:09:22] 
+[11:09:22] ==> smoke turn: the DIY agent must reach the MCP server and answer
+[11:09:53] published zava-diy-advisor version 1
+[11:09:53] wrote AGENT_NAME_DIY to deploy/.state/zava.env
+[11:09:53] 
+[11:09:53] agent   : zava-diy-advisor (version 1)
+[11:09:53] model   : gpt-5-mini
+[11:09:53] prompt  : diy_assistant.md
+[11:09:53] mcp     : https://mcp-zava-d33d.azurewebsites.net/mcp
+[11:09:53] tools   : 7 allowed
+[11:09:53] inputs  : mcp_api_key, rls_user_id, run_context
+[11:09:53] 
+[11:09:53] response status: completed
+[11:09:53] tool calls made: 1
+[11:09:53]   - zava_catalog get_taxonomy
+[11:09:53] 
+[11:09:53] --- assistant ---
+[11:09:53] I checked the catalogue. Zava carries nine top-level categories (89 product types in total). A few are:
+[11:09:53] 
+[11:09:53] - ELECTRICAL — e.g. wire, outlets, switches, light fixtures  
+[11:09:53] - GARDEN & OUTDOOR — e.g. hoses, soil, mulch, outdoor lighting  
+[11:09:53] - HAND TOOLS — e.g. hammers, screwdrivers, hand saws, measuring tools  
+[11:09:53] - HARDWARE — e.g. screws, nails, hinges, brackets  
+[11:09:53] - LUMBER & BUILDING MATERIALS — e.g. dimensional lumber, plywood, OSB, drywall  
+[11:09:53] - PAINT & FINISHES — e.g. interior/exterior paint, brushes, primer, wood stain  
+[11:09:53] - PLUMBING — e.g. PVC pipe, pipe fittings, faucets, valves  
+[11:09:53] - POWER TOOLS — e.g. drills, circular saws, sanders, routers  
+[11:09:53] - STORAGE & ORGANIZATION — e.g. shelving, cabinets, tool boxes, pegboard
+[11:09:53] 
+[11:09:53] If you want, I can list all product types in a specific category or show products in any of these.
+[11:09:53]  ok agents published and answering
+[11:09:54]  ok MCP /healthz answers
+[11:09:55]  ok MCP refuses a call without x-api-key
+[11:09:55]  ok chat /health answers
+[11:09:55]  ok chat refuses an anonymous visitor
+[11:09:56]  ok chat admits a configured sign-in
+[11:09:56] ==> one chat turn through the deployed app (chat app -> Foundry agent -> MCP -> Postgres)
+[11:10:50]  ok chat turn streamed 45 content frames and completed
+[11:10:50]    Yes — Zava stocks Rubber Mulch Black.
+[11:10:50]    
+[11:10:50]    Product: Rubber Mulch Black  
+[11:10:50]    SKU: GOMUL002  
+[11:10:50]    Unit price: $14.93
+[11:10:50]    
+[11:10:50]    Stock by store (in stock now):
+[11:10:50]    - Zava Retail Seattle: 2,051  
+[11:10:50]    - Zava Retail Bellevue: 940  
+[11:10:50]    - Zava Retail Tacoma: 606  
+[11:10:50]    - Zava Retail Spokane: 1,282  
+[11:10:50]    - Zava Retail Everett: 120  
+[11:10:50]    - Zava Retail Redmond: 881  
+[11:10:50]    - Zava Retail Kirkland: 518  
+[11:10:50]    - Zava Retail Online: 1,150
+[11:10:50]    
+[11:10:50]    Total across Zava stores: 7
+[11:10:50]  ok end-to-end verification passed
+END 2026-10-17 11:10:50 NZDT
